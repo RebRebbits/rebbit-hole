@@ -1,0 +1,12 @@
+# Rust build output
+/target
+
+# Generated Tauri schemas
+/gen/schemas
+
+# Optional env files
+.env
+.env.local
+
+# Logs
+*.log

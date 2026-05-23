@@ -1,0 +1,68 @@
+# ============================================================
+# Rebbit Hole — .gitignore
+# ============================================================
+
+# ──────────────────────────────
+# Node / Launcher (React + Vite)
+# ──────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# ──────────────────────────────
+# Tauri
+# ──────────────────────────────
+launcher/src-tauri/target/
+launcher/src-tauri/WixTools/
+
+# ──────────────────────────────
+# Python / Backend (FastAPI)
+# ──────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+*.log
+
+# ──────────────────────────────
+# Environment / Secrets
+# ──────────────────────────────
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+
+# ──────────────────────────────
+# Editor & OS
+# ──────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ──────────────────────────────
+# Misc
+# ──────────────────────────────
+*.bak
+*.swp
+*.tmp
+coverage/
+.nyc_output/
