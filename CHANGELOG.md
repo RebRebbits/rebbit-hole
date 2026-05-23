@@ -13,3 +13,5 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - README, .gitignore, and system plan documentation
 - Tauri + React + Vite launcher shell (`launcher/`)
 - Confirmed desktop window renders correctly via `npx tauri dev`
+- FastAPI backend stub with health endpoint (`backend/`)
+- Environment variable template (`backend/.env.example`)
