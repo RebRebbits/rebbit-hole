@@ -2,23 +2,25 @@ import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
+import Library from './pages/Library'
+import Placeholder from './pages/Placeholder'
+import Sidebar, { type NavPage } from './components/Sidebar'
 import type { Session } from '@supabase/supabase-js'
 
-type Page = 'login' | 'signup'
+type AuthPage = 'login' | 'signup'
 
 export default function App() {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
-  const [page, setPage] = useState<Page>('login')
+  const [authPage, setAuthPage] = useState<AuthPage>('login')
+  const [navPage, setNavPage] = useState<NavPage>('library')
 
   useEffect(() => {
-    // Check if user is already logged in
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
       setLoading(false)
     })
 
-    // Listen for login / logout events
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
@@ -26,7 +28,6 @@ export default function App() {
     return () => subscription.unsubscribe()
   }, [])
 
-  // ── Loading state ──────────────────────────────────────────
   if (loading) {
     return (
       <div style={styles.loadingWrapper}>
@@ -35,35 +36,34 @@ export default function App() {
     )
   }
 
-  // ── Logged in ──────────────────────────────────────────────
-  if (session) {
-    return (
-      <div style={styles.launcherWrapper}>
-        <div style={styles.launcherCard}>
-          <h1 style={styles.launcherTitle}>Rebbit Hole</h1>
-          <p style={styles.launcherSub}>
-            Welcome, <strong>{session.user.email}</strong> 🐾
-          </p>
-          <p style={styles.launcherHint}>
-            Game library coming soon.
-          </p>
-          <button
-            style={styles.signOutBtn}
-            onClick={() => supabase.auth.signOut()}
-          >
-            Sign out
-          </button>
-        </div>
-      </div>
-    )
+  if (!session) {
+    if (authPage === 'signup') return <SignUp onNavigate={setAuthPage} />
+    return <Login onNavigate={setAuthPage} onSuccess={() => {}} />
   }
 
-  // ── Not logged in ──────────────────────────────────────────
-  if (page === 'signup') {
-    return <SignUp onNavigate={setPage} />
+  const renderPage = () => {
+    switch (navPage) {
+      case 'library':  return <Library />
+      case 'rewards':  return <Placeholder title="Rewards" description="Cross-game rewards and achievements coming soon." />
+      case 'ranks':    return <Placeholder title="Ranks" description="Player rankings coming soon." />
+      case 'activity': return <Placeholder title="Activity" description="Your activity log and stats coming soon." />
+      case 'news':     return <Placeholder title="News" description="Studio news and announcements coming soon." />
+      case 'forums':   return <Placeholder title="Forums" description="Community forums coming soon." />
+      case 'settings': return <Placeholder title="Settings" description="Launcher settings coming soon." />
+    }
   }
 
-  return <Login onNavigate={setPage} onSuccess={() => {}} />
+  return (
+    <div style={styles.launcher}>
+      <Sidebar
+        session={session}
+        activePage={navPage}
+        onNavigate={setNavPage}
+        onSignOut={() => supabase.auth.signOut()}
+      />
+      {renderPage()}
+    </div>
+  )
 }
 
 const styles: Record<string, React.CSSProperties> = {
@@ -79,51 +79,10 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: '14px',
     fontFamily: 'var(--font-main)',
   },
-  launcherWrapper: {
-    minHeight: '100vh',
+  launcher: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: '100vh',
+    overflow: 'hidden',
     backgroundColor: 'var(--color-bg)',
-    padding: '1rem',
-  },
-  launcherCard: {
-    width: '100%',
-    maxWidth: '480px',
-    backgroundColor: 'var(--color-surface)',
-    border: '1px solid var(--color-border)',
-    borderRadius: 'var(--radius-lg)',
-    padding: '2.5rem 2rem',
-    textAlign: 'center',
-    boxShadow: '0 4px 24px rgba(45, 59, 42, 0.08)',
-  },
-  launcherTitle: {
-    color: 'var(--color-text-primary)',
-    fontSize: '26px',
-    fontWeight: 600,
-    margin: '0 0 8px',
-    fontFamily: 'var(--font-main)',
-  },
-  launcherSub: {
-    color: 'var(--color-text-secondary)',
-    fontSize: '14px',
-    margin: '0 0 8px',
-    fontFamily: 'var(--font-main)',
-  },
-  launcherHint: {
-    color: 'var(--color-text-secondary)',
-    fontSize: '13px',
-    margin: '0 0 2rem',
-    fontFamily: 'var(--font-main)',
-  },
-  signOutBtn: {
-    backgroundColor: 'transparent',
-    border: '1px solid var(--color-border)',
-    borderRadius: 'var(--radius-sm)',
-    color: 'var(--color-text-secondary)',
-    fontSize: '13px',
-    fontFamily: 'var(--font-main)',
-    padding: '8px 20px',
-    cursor: 'pointer',
   },
 }

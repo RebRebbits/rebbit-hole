@@ -30,3 +30,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Built AuthForm, Login, and SignUp components
 - Wired Supabase auth into App.tsx with session handling
 - Confirmed sign up, email confirmation, and login all working
+
+- Added retractable sidebar with Library, Rewards, Ranks, Activity, News, Forums, Settings nav
+- Built GameCard, GameDetail, and Library page components
+- Added Placeholder page for unbuilt sections
+- Cottagecore theme applied across full launcher layout
