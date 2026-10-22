@@ -1,0 +1,41 @@
+/* ============================================================
+   Rebbit Hole — Theme
+   All colors live here. To retheme, only edit this file.
+   ============================================================ */
+
+:root {
+  /* --- Surfaces --- */
+  --color-bg:           #FAF6EE;   /* parchment — main background */
+  --color-surface:      #FFFFFF;   /* white linen — cards, inputs */
+  --color-header:       #2D3B2A;   /* forest night — top panels, sidebar */
+
+  /* --- Text --- */
+  --color-text-primary:   #2D3B2A; /* forest night — headings, body */
+  --color-text-secondary: #8B7355; /* bark brown — muted labels, hints */
+  --color-text-on-dark:   #F5ECD7; /* parchment light — text on dark surfaces */
+  --color-text-muted:     #B8C9A3; /* sage mist — subtitles on dark surfaces */
+
+  /* --- Accents --- */
+  --color-accent:         #7A9E6A; /* sage green — primary buttons, links */
+  --color-accent-hover:   #5E8750; /* darker sage — button hover */
+  --color-accent-text:    #F5ECD7; /* text on accent buttons */
+  --color-sand:           #C9B99A; /* warm sand — borders, dividers */
+  --color-terracotta:     #D4845A; /* terracotta — warnings, highlights */
+  --color-bark:           #8B7355; /* bark brown — secondary actions */
+
+  /* --- Borders --- */
+  --color-border:         #C9B99A; /* warm sand */
+  --color-border-focus:   #7A9E6A; /* sage green — input focus ring */
+
+  /* --- Feedback --- */
+  --color-error:          #D4845A; /* terracotta */
+  --color-success:        #7A9E6A; /* sage green */
+
+  /* --- Spacing & Shape --- */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+
+  /* --- Typography --- */
+  --font-main: 'Inter', system-ui, sans-serif;
+}

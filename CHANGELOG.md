@@ -17,3 +17,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - FastAPI backend stub with health endpoint (`backend/`)
 - Environment variable template (`backend/.env.example`)
 - Verify FastAPI running with health and docs endpoints
+
+## [21/10/2026]
+
+- Resolved Tauri compilation on 4GB RAM via paging file tuning and jobs = 1
+- Confirmed Tauri desktop window launches successfully
+- Verified Supabase client connects from within the desktop app
+
+## [22/10/2026]
+
+- Added cottagecore theme system via theme.css
+- Built AuthForm, Login, and SignUp components
+- Wired Supabase auth into App.tsx with session handling
+- Confirmed sign up, email confirmation, and login all working
